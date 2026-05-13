@@ -1,9 +1,9 @@
-export default function Home() {
+export default function BusinessReadyFinancePage() {
   return (
     <main style={{ width: '100vw', height: '100dvh', margin: 0 }}>
       <iframe
-        title="Business Ready Finance"
-        src="/business-ready-finance"
+        title="Business Ready Finance Prototype"
+        src="/business-ready-finance.html"
         style={{ width: '100%', height: '100%', border: 0 }}
       />
     </main>
