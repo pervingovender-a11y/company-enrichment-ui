@@ -6,16 +6,90 @@
 <title>Business Ready Finance</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
-html, body, iframe { margin:0; padding:0; width:100%; height:100%; border:0; }
+:root {
+  --navy:     #0f2545;
+  --navy-mid: #1a3a6b;
+  --blue:     #2860d8;
+  --teal:     #0b7a6e;
+  --teal-lt:  #e6f5f3;
+  --amber:    #c4620a;
+  --amber-lt: #fdf3ea;
+  --slate:    #f2f5fb;
+  --border:   #dde3ee;
+  --text:     #1c2b40;
+  --muted:    #6b7a94;
+  --white:    #fff;
+  --r:        10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--navy);
+}
+button { cursor: pointer; font-family: inherit; border: none; background: none; }
+input  { font-family: inherit; }
+#app { display: flex; flex-direction: column; width: 100vw; height: 100dvh; overflow: hidden; }
+#bar { flex: 0 0 50px; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 18px; z-index: 10; }
+.brand { display: flex; align-items: center; gap: 9px; }
+.bmark { width: 28px; height: 28px; background: var(--blue); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.btext strong { font-size: 13px; font-weight: 600; color: #fff; display: block; line-height: 1.2; }
+.btext small  { font-size: 10px; color: rgba(255,255,255,.4); }
+.ipill { font-size: 10px; color: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.12); border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
+@media (max-width: 480px) { .ipill { display:none; } }
+#body { flex: 1 1 0; display: flex; overflow: hidden; background: var(--slate); }
+#sidebar { flex: 0 0 280px; background: var(--white); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+.sb-inner { flex: 1 1 0; padding: 0; display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
+@media (max-width: 680px) { #sidebar { display: none; } }
+.ss { display: flex; flex-direction: column; justify-content: center; min-height: 0; border-bottom: 1px solid var(--border); padding: 8px 14px; }
+.ss:last-child { border-bottom: none; }
+.ss-sales{flex:3 1 0}.ss-sector{flex:5 1 0}.ss-trading{flex:2.5 1 0}.ss-ho{flex:1.5 1 0}.ss-prop{flex:2.5 1 0}
+.sl { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; flex-shrink: 0; }
+.inw { position: relative; flex-shrink: 0; }
+.inw .px { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--muted); pointer-events: none; font-weight: 500; }
+.inw input { width: 100%; height: 44px; padding: 0 12px 0 28px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 20px; font-weight: 700; color: var(--text); outline: none; background: var(--white); transition: border-color .15s; }
+.inw input:focus { border-color: var(--navy-mid); }
+.pg2{display:grid;grid-template-columns:1fr 1fr;gap:5px;flex-shrink:0}.pg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;flex-shrink:0}
+.pb { border: 1.5px solid var(--border); border-radius: 7px; padding: 0; height: 34px; font-size: 13px; font-weight: 500; color: var(--muted); text-align: center; transition: all .12s; display: flex; align-items: center; justify-content: center; }
+.pb:hover { border-color: var(--navy-mid); color: var(--navy); }
+.pb.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.sg { display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1 1 0;min-height:0 }
+.sb-sec { border: 1.5px solid var(--border); border-radius: 7px; padding: 0; font-size: 12px; font-weight: 500; color: var(--muted); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; transition:all .12s; min-height:0 }
+.sb-sec .ei{font-size:18px;line-height:1}.sb-sec:hover{border-color:var(--navy-mid);color:var(--navy)}.sb-sec.on{background:#eef2fb;border-color:var(--navy-mid);color:var(--navy)}
+.togr{display:flex;gap:5px;flex-shrink:0}.togb{flex:1;border:1.5px solid var(--border);border-radius:7px;height:44px;font-size:16px;font-weight:500;color:var(--muted);text-align:center;transition:all .12s}.togb.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.sb-actions{flex-shrink:0;padding:12px 14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;background:var(--white)}
+.sb-btn-reset{width:100%;background:transparent;color:var(--muted);border:1.5px solid var(--border);border-radius:9px;padding:10px;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s}.sb-btn-reset:hover{border-color:#e05050;color:#e05050}
+#main{flex:1 1 0;display:flex;flex-direction:column;overflow:hidden}
+#tabbar{flex:0 0 auto;display:flex;gap:2px;padding:6px 14px 0;background:var(--slate);border-bottom:1px solid var(--border)}
+.tbtn{padding:7px 13px;border-radius:7px 7px 0 0;font-size:12px;font-weight:500;color:var(--muted);border:1px solid transparent;border-bottom:none;background:transparent;transition:all .15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.tbtn .n{width:15px;height:15px;border-radius:50%;background:var(--border);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .15s}.tbtn.on{background:var(--white);color:var(--navy);border-color:var(--border)}.tbtn.on .n{background:var(--navy);color:#fff}
+#panels{flex:1 1 0;overflow:hidden;background:var(--white);position:relative}
+.panel{position:absolute;inset:0;padding:12px 14px 10px;display:none;flex-direction:column;gap:7px;overflow:hidden}.panel.on{display:flex}
+#results-overlay{position:absolute;inset:0;background:rgba(242,245,251,0.92);display:flex;align-items:center;justify-content:center;z-index:20}
+.ro-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:32px 24px;max-width:360px}.ro-title{font-size:18px;font-weight:700;color:var(--navy)}.ro-sub{font-size:14px;color:var(--muted);line-height:1.6}.ro-btn{margin-top:8px;background:var(--blue);color:#fff;border-radius:9px;padding:14px 28px;font-size:16px;font-weight:700}
+#mobnav{display:none;flex:0 0 auto;background:var(--white);border-top:1px solid var(--border)}@media (max-width:680px){#mobnav{display:block}}
+.hero{flex:3 1 0;min-height:0;background:var(--navy);border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;overflow:hidden}
+.hl{font-size:14px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.4)}.ha{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,56px);color:#fff}
+.cards{flex:4 1 0;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.card{background:var(--slate);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;justify-content:center}
+.cl{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--muted)}.cv{font-family:'DM Serif Display',serif;font-size:clamp(18px,2.2vw,28px);color:var(--navy)}
+.disc{flex-shrink:0;background:var(--amber-lt);border:1px solid #f0d8c0;border-radius:6px;padding:8px 13px;font-size:12px;color:#7a4a1a}
 </style>
 </head>
 <body>
-<div style="display:grid;place-items:center;height:100%;font-family:'DM Sans',sans-serif;background:#f2f5fb;color:#1c2b40;">
-  <div style="text-align:center;max-width:760px;padding:24px;">
-    <h1>Business Ready Finance preview</h1>
-    <p>The full static prototype provided in review is now embedded via Next.js route.</p>
-    <p>Open <strong>/business-ready-finance</strong> to view it directly.</p>
-  </div>
-</div>
+<div id="app"><div id="bar"><div class="brand"><div class="bmark">BF</div><div class="btext"><strong>Business Ready Finance</strong><small>Funding eligibility calculator</small></div></div><div class="ipill">Indicative only — not financial advice</div></div><div id="body"><div id="sidebar"><div class="sb-inner"><div class="ss ss-sales"><div class="sl">Monthly Sales</div><div class="inw"><span class="px">£</span><input type="text" id="si" value="25,000" oninput="onSI()"></div></div></div><div class="sb-actions"><button class="sb-btn-reset" onclick="resetAll()">↺ Start Again</button></div></div><div id="main"><div id="tabbar"><button class="tbtn on" onclick="tab('snapshot',this)"><span class="n">1</span><span class="tlbl">Snapshot</span></button><button class="tbtn" onclick="tab('growth',this)"><span class="n">2</span><span class="tlbl">Growth</span></button><button class="tbtn" onclick="tab('range',this)"><span class="n">3</span><span class="tlbl">Products</span></button></div><div id="panels"><div id="results-overlay"><div class="ro-inner"><div class="ro-title">Your results are ready to calculate</div><div class="ro-sub">Fill in your details in the panel, then click <strong>Get My Results</strong> to see your funding snapshot.</div><button class="ro-btn" onclick="getResults()">✦ Get My Results</button></div></div><div class="panel on" id="p-snapshot"><div class="hero"><div><div class="hl">What you could access right now</div><div class="ha" id="h-amt">£125,000</div></div></div><div class="cards"><div class="card"><div class="cl">Funding Potential</div><div class="cv" id="c-fund">£125,000</div></div></div><div class="disc">⚠ Indicative planning estimates only — not affordability, tax or regulated mortgage advice.</div></div><div class="panel" id="p-growth"></div><div class="panel" id="p-range"></div></div></div></div><div id="mobnav"></div></div>
+<script>
+function tab(id, btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));document.getElementById('p-'+id).classList.add('on');btn.classList.add('on');}
+function fmtGBP(n){return '£'+n.toLocaleString('en-GB')} function pot(s){return Math.round(s*5)}
+function updateHero(s){const p=pot(s);document.getElementById('h-amt').textContent=fmtGBP(p);document.getElementById('c-fund').textContent=fmtGBP(p)}
+function getSales(){return parseInt((document.getElementById('si').value||'').replace(/[^0-9]/g,''))||25000}
+let revealed=false;function setRevealed(state){revealed=state;const overlay=document.getElementById('results-overlay');overlay.style.display=revealed?'none':'flex';}
+function getResults(){setRevealed(true);updateHero(getSales())}
+function onSI(){if(revealed)updateHero(getSales())}
+function resetAll(){document.getElementById('si').value='25,000';updateHero(25000);setRevealed(false)}
+document.addEventListener('DOMContentLoaded',()=>setRevealed(false));
+</script>
 </body>
 </html>
